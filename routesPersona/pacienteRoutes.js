@@ -5,7 +5,7 @@ const pacienteController = require('../controllerPersona/pacienteController');
 // Crear un nuevo paciente
 /**
  * @swagger
- * /pacientes:
+ * /paciente:
  *   post:
  *     summary: Crear un nuevo paciente
  *     tags: ["Pacientes"]
@@ -65,7 +65,7 @@ router.post('/', pacienteController.crearPaciente);
 // Listar todos los pacientes
 /**
  * @swagger
- * /pacientes:
+ * /paciente:
  *   get:
  *     summary: Listar todos los pacientes
  *     tags: ["Pacientes"]
@@ -116,12 +116,12 @@ router.post('/', pacienteController.crearPaciente);
  *       204:
  *         description: No hay contenido
  */
-router.get('/', pacienteController.listarPacientes);
+router.get('/', pacienteController.listarPaciente);
 
 // Obtener un paciente por email
 /**
  * @swagger
- * /pacientes/{email}:
+ * /paciente/{email}:
  *   get:
  *     summary: Obtener un paciente por email
  *     tags: ["Pacientes"]
@@ -182,7 +182,7 @@ router.get('/:email', pacienteController.obtenerPacientePorEmail);
 // Actualizar un paciente por email
 /**
  * @swagger
- * /pacientes/{email}:
+ * /paciente/{email}:
  *   put:
  *     summary: Actualizar un paciente por email
  *     tags: ["Pacientes"]
@@ -247,7 +247,7 @@ router.put('/:email', pacienteController.actualizarPaciente);
 // Eliminar un paciente por email
 /**
  * @swagger
- * /pacientes/{email}:
+ * /paciente/{email}:
  *   delete:
  *     summary: Eliminar un paciente por email
  *     tags: ["Pacientes"]

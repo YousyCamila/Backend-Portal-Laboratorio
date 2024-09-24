@@ -1,9 +1,8 @@
+const { personaSchemaValidation } = require('./personaValidations'); // Importa las validaciones de Persona
 const Joi = require('@hapi/joi');
-const { personaSchemaValidation } = require('./personaValidations'); // Importa la validación de Persona
 
 // Validaciones para el objeto Profesional
-const profesionalSchemaValidation = Joi.object({
-  ...personaSchemaValidation.describe().keys, // Incluye las validaciones de Persona
+const profesionalSchemaValidation = personaSchemaValidation.keys({
   especialidad: Joi.string()
     .required()
     .messages({

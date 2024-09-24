@@ -2,9 +2,9 @@ const logic = require('../logicPersona/pacienteLogic'); // Asegúrate de que la 
 const { pacienteSchemaValidation } = require('../validationsPersona/pacienteValidations'); // Suponiendo que tienes un esquema de validación
 
 // Controlador para listar todos los pacientes
-const listarPacientes = async (req, res) => {
+const listarPaciente = async (req, res) => {
     try {
-        const pacientes = await logic.obtenerPacientes();
+        const pacientes = await logic.obtenerPaciente();
         if (pacientes.length === 0) {
             return res.status(204).send(); // 204 No Content
         }
@@ -14,12 +14,23 @@ const listarPacientes = async (req, res) => {
     }
 };
 
-// Controlador para crear un nuevo paciente
 const crearPaciente = async (req, res) => {
+    
     const body = req.body;
+
+    // Validar todos los campos necesarios para el esquema de Persona
     const { error, value } = pacienteSchemaValidation.validate({
+        tipoIdentificacion: body.tipoIdentificacion,
+        numeroIdentificacion: body.numeroIdentificacion,
+        apellido1: body.apellido1,
+        apellido2: body.apellido2,
+        nombre1: body.nombre1,
+        nombre2: body.nombre2,
+        sexoBiologico: body.sexoBiologico,
+        direccion: body.direccion,
+        telefonoMovil: body.telefonoMovil,
         email: body.email,
-        // Añade otros campos necesarios para validar
+        fechaNacimiento: body.fechaNacimiento,
     });
 
     if (error) {
@@ -82,7 +93,7 @@ const eliminarPaciente = async (req, res) => {
 
 // Exportar los controladores
 module.exports = {
-    listarPacientes,
+    listarPaciente,
     crearPaciente,
     obtenerPacientePorEmail,
     actualizarPaciente,

@@ -5,7 +5,7 @@ const gruposController = require('../controllersOrders/grupoController');
 // Crear un nuevo grupo
 /**
  * @swagger
- * /grupos:
+ * /grupo:
  *   post:
  *     summary: Crear un nuevo grupo
  *     tags: ["Grupos"]
@@ -37,7 +37,7 @@ router.post('/', gruposController.crearGrupo);
 // Listar todos los grupos
 /**
  * @swagger
- * /grupos:
+ * /grupo:
  *   get:
  *     summary: Listar todos los grupos
  *     tags: ["Grupos"]
@@ -67,7 +67,7 @@ router.get('/', gruposController.listarGrupos);
 // Obtener un grupo por nombre
 /**
  * @swagger
- * /grupos/{nombre}:
+ * /grupo/{nombre}:
  *   get:
  *     summary: Obtener un grupo por nombre
  *     tags: ["Grupos"]
@@ -102,7 +102,7 @@ router.get('/:nombre', gruposController.obtenerGrupoPorNombre);
 // Actualizar un grupo por nombre
 /**
  * @swagger
- * /grupos/{nombre}:
+ * /grupo/{nombre}:
  *   put:
  *     summary: Actualizar un grupo por nombre
  *     tags: ["Grupos"]
@@ -139,7 +139,7 @@ router.put('/:nombre', gruposController.actualizarGrupo);
 // Eliminar un grupo por nombre
 /**
  * @swagger
- * /grupos/{nombre}:
+ * /grupo/{nombre}:
  *   delete:
  *     summary: Eliminar un grupo por nombre
  *     tags: ["Grupos"]

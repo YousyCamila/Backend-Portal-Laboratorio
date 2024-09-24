@@ -5,7 +5,7 @@ const profesionalController = require('../controllerPersona/profesionalControlle
 // Crear un nuevo profesional
 /**
  * @swagger
- * /profesionales:
+ * /profesional:
  *   post:
  *     summary: Crear un nuevo profesional
  *     tags: ["Profesionales"]
@@ -64,7 +64,7 @@ router.post('/', profesionalController.crearProfesional);
 // Listar todos los profesionales
 /**
  * @swagger
- * /profesionales:
+ * /profesional:
  *   get:
  *     summary: Listar todos los profesionales
  *     tags: ["Profesionales"]
@@ -119,7 +119,7 @@ router.get('/', profesionalController.listarProfesionales);
 // Obtener un profesional por email
 /**
  * @swagger
- * /profesionales/{email}:
+ * /profesional/{email}:
  *   get:
  *     summary: Obtener un profesional por email
  *     tags: ["Profesionales"]
@@ -179,7 +179,7 @@ router.get('/:email', profesionalController.obtenerProfesionalPorEmail);
 // Actualizar un profesional por email
 /**
  * @swagger
- * /profesionales/{email}:
+ * /profesional/{email}:
  *   put:
  *     summary: Actualizar un profesional por email
  *     tags: ["Profesionales"]
@@ -217,7 +217,7 @@ router.put('/:email', profesionalController.actualizarProfesional);
 // Eliminar un profesional por email
 /**
  * @swagger
- * /profesionales/{email}:
+ * /profesional/{email}:
  *   delete:
  *     summary: Eliminar un profesional por email
  *     tags: ["Profesionales"]

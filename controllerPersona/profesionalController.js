@@ -18,8 +18,17 @@ const listarProfesionales = async (req, res) => {
 const crearProfesional = async (req, res) => {
     const body = req.body;
     const { error, value } = profesionalSchemaValidation.validate({
+        tipoIdentificacion: body.tipoIdentificacion,
+        numeroIdentificacion: body.numeroIdentificacion,
+        apellido1: body.apellido1,
+        apellido2: body.apellido2,
+        nombre1: body.nombre1,
+        nombre2: body.nombre2,
+        sexoBiologico: body.sexoBiologico,
+        direccion: body.direccion,
+        telefonoMovil: body.telefonoMovil,
         email: body.email,
-        // Añade otros campos necesarios para validar
+        especialidad: body.especialidad,
     });
 
     if (error) {

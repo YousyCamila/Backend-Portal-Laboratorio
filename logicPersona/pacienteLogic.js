@@ -14,7 +14,7 @@ async function crearPaciente(body) {
 }
 
 // Obtener todos los pacientes
-async function obtenerPacientes() {
+async function obtenerPaciente() {
     return await Paciente.find();
 }
 
@@ -50,7 +50,7 @@ async function eliminarPaciente(email) {
 
 module.exports = {
     crearPaciente,
-    obtenerPacientes,
+    obtenerPaciente,
     obtenerPacientePorEmail,
     actualizarPaciente,
     eliminarPaciente,
