@@ -19,6 +19,8 @@ const ordenRoutes = require('./routesOrders/ordenRoutes'); // Asegúrate de que 
 const procedimientoRoutes = require('./routesOrders/procedimientoRoutes'); // Asegúrate de que la ruta sea correcta
 const resultadoRoutes = require('./routesOrders/resultadoRoutes'); // Asegúrate de que la ruta sea correcta
 
+
+
 // Inicializar la aplicación Express
 const app = express();
 

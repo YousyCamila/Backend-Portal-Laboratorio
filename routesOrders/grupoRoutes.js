@@ -1,3 +1,4 @@
+// routesOrders/grupoRoutes.js
 const express = require('express');
 const router = express.Router();
 const gruposController = require('../controllersOrders/grupoController');
@@ -18,12 +19,12 @@ const gruposController = require('../controllersOrders/grupoController');
  *             properties:
  *               nombre:
  *                 type: string
- *                 example: "Grupo A"
+ *                 example: "Química sanguínea"
  *               procedimientos:
  *                 type: array
  *                 items:
  *                   type: string
- *                   example: "Procedimiento 1"
+ *                   example: "triglicéridos"
  *     responses:
  *       201:
  *         description: Grupo creado exitosamente
@@ -159,3 +160,4 @@ router.put('/:nombre', gruposController.actualizarGrupo);
 router.delete('/:nombre', gruposController.eliminarGrupo);
 
 module.exports = router;
+

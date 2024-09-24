@@ -1,5 +1,5 @@
-const logic = require('../logicOrders/grupoLogic'); // Asegúrate de que la ruta sea correcta
-const { grupoSchemaValidation } = require('../validationsOrders/grupoValidations'); // Suponiendo que tienes un esquema de validación
+// controllersOrders/grupoController.js
+const logic = require('../logicOrders/grupoLogic');
 
 // Controlador para listar todos los grupos
 const listarGrupos = async (req, res) => {
@@ -17,17 +17,9 @@ const listarGrupos = async (req, res) => {
 // Controlador para crear un nuevo grupo
 const crearGrupo = async (req, res) => {
     const body = req.body;
-    const { error, value } = grupoSchemaValidation.validate({
-        nombre: body.nombre,
-        // otros campos que necesites validar
-    });
-
-    if (error) {
-        return res.status(400).json({ error: error.details[0].message });
-    }
 
     try {
-        const nuevoGrupo = await logic.crearGrupo(value);
+        const nuevoGrupo = await logic.crearGrupo(body);
         res.status(201).json(nuevoGrupo);
     } catch (err) {
         if (err.message === 'El grupo ya existe con ese nombre.') {
@@ -52,17 +44,9 @@ const obtenerGrupoPorNombre = async (req, res) => {
 const actualizarGrupo = async (req, res) => {
     const { nombre } = req.params;
     const body = req.body;
-    const { error, value } = grupoSchemaValidation.validate({
-        nombre: body.nombre,
-        // otros campos que necesites validar
-    });
-
-    if (error) {
-        return res.status(400).json({ error: error.details[0].message });
-    }
 
     try {
-        const grupoActualizado = await logic.actualizarGrupo(nombre, value);
+        const grupoActualizado = await logic.actualizarGrupo(nombre, body);
         res.json(grupoActualizado);
     } catch (err) {
         res.status(404).json({ error: err.message });
