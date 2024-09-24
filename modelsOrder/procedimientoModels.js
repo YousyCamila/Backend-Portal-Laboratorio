@@ -1,11 +1,21 @@
+// models/Procedimiento.js
 const mongoose = require('mongoose');
-const ResultSchema = require('./resultadoModels');
 
-const ProcedimientoSchema = new mongoose.Schema({
-    nombre: { type: String, required: true },  // Nombre del procedimiento, por ejemplo, "Glucometría"
-    pruebas: [ResultSchema],  // Lista de pruebas asociadas al procedimiento
-  },{
-    timestamps: true, // Para registrar las fechas de creación y actualización
-  });
+const procedimientoSchema = new mongoose.Schema({
+  nombre: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  activo: {
+    type: Boolean,
+    default: true, // Los procedimientos son activos por defecto
+  },
+}, {
+  timestamps: true, // Para registrar la fecha de creación y actualización
+});
 
-  module.exports = mongoose.model('Procedimiento ', ProcedimientoSchema);
+const Procedimiento = mongoose.model('Procedimiento', procedimientoSchema);
+
+module.exports = Procedimiento;
+

@@ -1,58 +1,26 @@
-const Order = require('../modelsOrder/ordenModels'); 
-const Paciente = require('../modelsPersona/pacienteModels'); 
-const Grupo = require('../modelsOrder/grupoModels'); 
+const Orden = require('../modelsOrder/ordenModels'); // Asegúrate de que la ruta sea correcta
+const Paciente = require('../modelsPersona/pacienteModels');
 
-// Crear una nueva orden
-async function crearOrden(body) {
-    const paciente = await Paciente.findById(body.paciente);
-    
-    if (!paciente) {
-        throw new Error('Paciente no encontrado');
-    }
+async function obtenerOrdenesPorNumeroIdentificacion(numeroIdentificacion) {
+  // Buscar el paciente por número de identificación
+  const paciente = await Paciente.findOne({ numeroIdentificacion });
 
-    const ordenExistente = await Order.findOne({ numeroOrden: body.numeroOrden });
+  // Si el paciente no se encuentra, lanzar un error
+  if (!paciente) {
+    throw new Error('Paciente no encontrado');
+  }
 
-    if (ordenExistente) {
-        throw new Error('Ya existe una orden con ese número.');
-    }
+  // Buscar las órdenes de laboratorio asociadas al paciente
+  const ordenes = await Orden.find({ pacienteId: paciente._id });
 
-    const nuevaOrden = new Order(body);
-    return await nuevaOrden.save();
+  // Si no se encuentran órdenes, retornar un mensaje o una lista vacía
+  if (ordenes.length === 0) {
+    return { message: 'No se encontraron órdenes para este paciente' };
+  }
+
+  return ordenes;
 }
-
-// Obtener todas las órdenes
-async function obtenerOrdenes() {
-    return await Order.find().populate('paciente').populate('grupos');
-}
-
-// Obtener una orden por número de orden
-async function obtenerOrdenPorNumero(numeroOrden) {
-    const orden = await Order.findOne({ numeroOrden })
-        .populate('paciente')
-        .populate('grupos');
-
-    if (!orden) {
-        throw new Error('Orden no encontrada');
-    }
-    return orden;
-}
-
-// Actualizar una orden por número de orden
-async function actualizarOrden(numeroOrden, body) {
-    const orden = await Order.findOneAndUpdate({ numeroOrden }, body, { new: true })
-        .populate('paciente')
-        .populate('grupos');
-
-    if (!orden) {
-        throw new Error('Orden no encontrada');
-    }
-    return orden;
-}
-
 
 module.exports = {
-    crearOrden,
-    obtenerOrdenes,
-    obtenerOrdenPorNumero,
-    actualizarOrden,
+  obtenerOrdenesPorNumeroIdentificacion,
 };

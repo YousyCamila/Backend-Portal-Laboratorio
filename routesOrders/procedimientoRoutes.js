@@ -1,14 +1,21 @@
+// routes/procedimientoRoutes.js
 const express = require('express');
 const router = express.Router();
 const procedimientoController = require('../controllersOrders/procedimientoController');
 
-// Crear un nuevo procedimiento
 /**
  * @swagger
- * /procedimientos:
+ * tags:
+ *   name: Procedimientos
+ *   description: API para manejar procedimientos médicos
+ */
+
+/**
+ * @swagger
+ * /procedimiento:
  *   post:
  *     summary: Crear un nuevo procedimiento
- *     tags: ["Procedimientos"]
+ *     tags: [Procedimientos]
  *     requestBody:
  *       required: true
  *       content:
@@ -24,18 +31,15 @@ const procedimientoController = require('../controllersOrders/procedimientoContr
  *         description: Procedimiento creado exitosamente
  *       400:
  *         description: Error en la solicitud
- *       409:
- *         description: Conflicto en los datos
  */
 router.post('/', procedimientoController.crearProcedimiento);
 
-// Listar todos los procedimientos
 /**
  * @swagger
- * /procedimientos:
+ * /procedimiento:
  *   get:
  *     summary: Listar todos los procedimientos
- *     tags: ["Procedimientos"]
+ *     tags: [Procedimientos]
  *     responses:
  *       200:
  *         description: Lista de procedimientos
@@ -49,25 +53,27 @@ router.post('/', procedimientoController.crearProcedimiento);
  *                   nombre:
  *                     type: string
  *                     example: "Glucometría"
+ *                   activo:
+ *                     type: boolean
+ *                     example: true
  *       204:
  *         description: No hay contenido
  */
 router.get('/', procedimientoController.listarProcedimientos);
 
-// Obtener un procedimiento por nombre
 /**
  * @swagger
- * /procedimientos/{nombre}:
+ * /procedimiento/{nombre}:
  *   get:
  *     summary: Obtener un procedimiento por nombre
- *     tags: ["Procedimientos"]
+ *     tags: [Procedimientos]
  *     parameters:
  *       - in: path
  *         name: nombre
  *         required: true
  *         schema:
  *           type: string
- *         description: Nombre del procedimiento a obtener.
+ *         description: Nombre del procedimiento a obtener
  *     responses:
  *       200:
  *         description: Procedimiento encontrado
@@ -79,25 +85,27 @@ router.get('/', procedimientoController.listarProcedimientos);
  *                 nombre:
  *                   type: string
  *                   example: "Glucometría"
+ *                 activo:
+ *                   type: boolean
+ *                   example: true
  *       404:
  *         description: Procedimiento no encontrado
  */
 router.get('/:nombre', procedimientoController.obtenerProcedimientoPorNombre);
 
-// Actualizar un procedimiento por nombre
 /**
  * @swagger
- * /procedimientos/{nombre}:
+ * /procedimiento/{nombre}:
  *   put:
  *     summary: Actualizar un procedimiento por nombre
- *     tags: ["Procedimientos"]
+ *     tags: [Procedimientos]
  *     parameters:
  *       - in: path
  *         name: nombre
  *         required: true
  *         schema:
  *           type: string
- *         description: Nombre del procedimiento a actualizar.
+ *         description: Nombre del procedimiento a actualizar
  *     requestBody:
  *       required: true
  *       content:
@@ -108,6 +116,9 @@ router.get('/:nombre', procedimientoController.obtenerProcedimientoPorNombre);
  *               nombre:
  *                 type: string
  *                 example: "Glucometría"
+ *               activo:
+ *                 type: boolean
+ *                 example: true
  *     responses:
  *       200:
  *         description: Procedimiento actualizado exitosamente
@@ -116,26 +127,25 @@ router.get('/:nombre', procedimientoController.obtenerProcedimientoPorNombre);
  */
 router.put('/:nombre', procedimientoController.actualizarProcedimiento);
 
-// Eliminar un procedimiento por nombre
 /**
  * @swagger
- * /procedimientos/{nombre}:
+ * /procedimiento/{nombre}:
  *   delete:
- *     summary: Eliminar un procedimiento por nombre
- *     tags: ["Procedimientos"]
+ *     summary: Desactivar un procedimiento por nombre
+ *     tags: [Procedimientos]
  *     parameters:
  *       - in: path
  *         name: nombre
  *         required: true
  *         schema:
  *           type: string
- *         description: Nombre del procedimiento a eliminar.
+ *         description: Nombre del procedimiento a desactivar
  *     responses:
  *       200:
- *         description: Procedimiento eliminado exitosamente
+ *         description: Procedimiento desactivado exitosamente
  *       404:
  *         description: Procedimiento no encontrado
  */
-router.delete('/:nombre', procedimientoController.eliminarProcedimiento);
+router.delete('/:nombre', procedimientoController.desactivarProcedimiento);
 
 module.exports = router;

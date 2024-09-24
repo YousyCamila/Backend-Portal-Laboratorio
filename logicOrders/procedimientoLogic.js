@@ -1,56 +1,33 @@
-const Procedimiento = require('../modelsOrder/procedimientoModels'); // Asegúrate de importar correctamente el modelo
+// logic/procedimientoLogic.js
+const Procedimiento = require('../modelsOrder/procedimientoModels');
 
-// Crear un nuevo procedimiento
-async function crearProcedimiento(body) {
-    const procedimientoExistente = await Procedimiento.findOne({ nombre: body.nombre });
+const crearProcedimiento = async (data) => {
+  const procedimiento = new Procedimiento(data);
+  await procedimiento.save();
+  return procedimiento;
+};
 
-    if (procedimientoExistente) {
-        throw new Error('El procedimiento ya existe con ese nombre.');
-    }
+const listarProcedimientos = async () => {
+  return await Procedimiento.find();
+};
 
-    const nuevoProcedimiento = new Procedimiento(body);
-    return await nuevoProcedimiento.save();
-}
+const obtenerProcedimientoPorNombre = async (nombre) => {
+  return await Procedimiento.findOne({ nombre });
+};
 
-// Obtener todos los procedimientos
-async function obtenerProcedimientos() {
-    return await Procedimiento.find();
-}
+const actualizarProcedimiento = async (nombre, data) => {
+  return await Procedimiento.findOneAndUpdate({ nombre }, data, { new: true });
+};
 
-// Obtener un procedimiento por nombre
-async function obtenerProcedimientoPorNombre(nombre) {
-    const procedimiento = await Procedimiento.findOne({ nombre });
-
-    if (!procedimiento) {
-        throw new Error('Procedimiento no encontrado');
-    }
-    return procedimiento;
-}
-
-// Actualizar un procedimiento por nombre
-async function actualizarProcedimiento(nombre, body) {
-    const procedimiento = await Procedimiento.findOneAndUpdate({ nombre }, body, { new: true });
-
-    if (!procedimiento) {
-        throw new Error('Procedimiento no encontrado');
-    }
-    return procedimiento;
-}
-
-// Eliminar un procedimiento por nombre
-async function eliminarProcedimiento(nombre) {
-    const procedimiento = await Procedimiento.findOneAndDelete({ nombre });
-
-    if (!procedimiento) {
-        throw new Error('Procedimiento no encontrado');
-    }
-    return { message: 'Procedimiento eliminado' };
-}
+const desactivarProcedimiento = async (nombre) => {
+  return await Procedimiento.findOneAndUpdate({ nombre }, { activo: false }, { new: true });
+};
 
 module.exports = {
-    crearProcedimiento,
-    obtenerProcedimientos,
-    obtenerProcedimientoPorNombre,
-    actualizarProcedimiento,
-    eliminarProcedimiento,
+  crearProcedimiento,
+  listarProcedimientos,
+  obtenerProcedimientoPorNombre,
+  actualizarProcedimiento,
+  desactivarProcedimiento,
 };
+

@@ -32,12 +32,12 @@ const swaggerDefinition = {
       },
       
     {
-      name: 'Ordenes',
+      name: 'Ordens',
       description: 'Operaciones relacionadas con las ordenes',
     },
     
     {
-      name: 'Procedimientos',
+      name: 'Procedimiento',
       description: 'Operaciones relacionadas con los procedimientos',
     },
     
