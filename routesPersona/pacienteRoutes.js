@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const pacienteController = require('../controller/pacienteController');
+const pacienteController = require('../controllerPersona/pacienteController');
 
 // Crear un nuevo paciente
 /**

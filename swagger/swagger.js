@@ -27,12 +27,12 @@ const swaggerDefinition = {
     },
 
     {
-        name: 'Grupo',
+        name: 'Grupos',
         description: 'Operaciones relacionadas con el grupo de las ordenes',
       },
       
     {
-      name: 'Orden',
+      name: 'Ordenes',
       description: 'Operaciones relacionadas con las ordenes',
     },
     
@@ -52,7 +52,7 @@ const swaggerDefinition = {
 
 const options = {
   swaggerDefinition,
-  apis: ['./routes/*.js'], 
+  apis: ['./routesOrders/*.js','./routesPersona/*.js'], 
 };
 
 const swaggerSpec = swaggerJSDoc(options);

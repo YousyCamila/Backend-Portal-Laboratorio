@@ -8,7 +8,7 @@ const ordenesController = require('../controllersOrders/ordenController');
  * /ordenes:
  *   post:
  *     summary: Crear una nueva orden
- *     tags: ["Órdenes"]
+ *     tags: ["Ordenes"]
  *     requestBody:
  *       required: true
  *       content:
@@ -28,7 +28,7 @@ const ordenesController = require('../controllersOrders/ordenController');
  *                 example: "ORD123456"
  *               paciente:
  *                 type: string
- *                 example: "60b8d8e4b77e6f001c123456"  // ID del paciente
+ *                 example: "60b8d8e4b77e6f001c123456"  
  *               grupos:
  *                 type: array
  *                 items:
@@ -58,7 +58,7 @@ router.post('/', ordenesController.crearOrden);
  * /ordenes:
  *   get:
  *     summary: Listar todas las órdenes
- *     tags: ["Órdenes"]
+ *     tags: ["Ordenes"]
  *     responses:
  *       200:
  *         description: Lista de órdenes
@@ -74,7 +74,7 @@ router.post('/', ordenesController.crearOrden);
  *                     example: "ORD123456"
  *                   paciente:
  *                     type: string
- *                     example: "60b8d8e4b77e6f001c123456"  // ID del paciente
+ *                     example: "60b8d8e4b77e6f001c123456"  
  *                   grupos:
  *                     type: array
  *                     items:
@@ -94,7 +94,7 @@ router.get('/', ordenesController.listarOrdenes);
  * /ordenes/{numeroOrden}:
  *   get:
  *     summary: Obtener una orden por número de orden
- *     tags: ["Órdenes"]
+ *     tags: ["Ordenes"]
  *     parameters:
  *       - in: path
  *         name: numeroOrden
@@ -115,7 +115,7 @@ router.get('/', ordenesController.listarOrdenes);
  *                   example: "ORD123456"
  *                 paciente:
  *                   type: string
- *                   example: "60b8d8e4b77e6f001c123456"  // ID del paciente
+ *                   example: "60b8d8e4b77e6f001c123456"  
  *                 grupos:
  *                   type: array
  *                   items:
@@ -135,7 +135,7 @@ router.get('/:numeroOrden', ordenesController.obtenerOrdenPorNumero);
  * /ordenes/{numeroOrden}:
  *   put:
  *     summary: Actualizar una orden por número de orden
- *     tags: ["Órdenes"]
+ *     tags: ["Ordenes"]
  *     parameters:
  *       - in: path
  *         name: numeroOrden
@@ -159,7 +159,7 @@ router.get('/:numeroOrden', ordenesController.obtenerOrdenPorNumero);
  *                 example: "DOC123456"
  *               paciente:
  *                 type: string
- *                 example: "60b8d8e4b77e6f001c123456"  // ID del paciente
+ *                 example: "60b8d8e4b77e6f001c123456"  
  *               grupos:
  *                 type: array
  *                 items:

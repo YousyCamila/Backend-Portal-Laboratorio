@@ -13,14 +13,6 @@ const grupoSchemaValidation = Joi.object({
         'string.max': 'El nombre del grupo no debe exceder los 50 caracteres',
         'any.required': 'El nombre del grupo es un campo requerido',
       }),
-  
-    procedimientos: Joi.array()
-      .items(procedimientoSchemaValidation)
-      .required()
-      .messages({
-        'array.base': 'Los procedimientos deben ser un arreglo',
-        'any.required': 'La lista de procedimientos es requerida',
-      }),
   });
 
   module.exports = { grupoSchemaValidation };

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const profesionalController = require('../controller/profesionalController');
+const profesionalController = require('../controllerPersona/profesionalController');
 
 // Crear un nuevo profesional
 /**
@@ -203,7 +203,7 @@ router.get('/:email', profesionalController.obtenerProfesionalPorEmail);
  *               email:
  *                 type: string
  *                 example: "juan.perez@example.com"
- *               // Añade otros campos de Persona que necesites actualizar
+ *           
  *     responses:
  *       200:
  *         description: Profesional actualizado
