@@ -1,0 +1,34 @@
+{
+  "name": "backend-portal-laboratorio",
+  "version": "1.0.0",
+  "description": "Crecion de un  backend del portal de laboratorio, responsable de gestionar la lógica del negocio y la interacción con la base de datos. Proporciona una API RESTful que permite la comunicación entre el front-end y los servicios del laboratorio.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "'https://github.com/YousyCamila/Backend-Portal-Laboratorio.git'"
+  },
+  "keywords": [
+    "[APIRESTFULL",
+    "backend",
+    "Api's]"
+  ],
+  "author": "Danna Camila Guerra Rincon",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "express-validator": "^7.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.6.3",
+    "mysql2": "^3.11.3",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui": "^5.17.14",
+    "swagger-ui-express": "^5.0.1"
+  }
+}
