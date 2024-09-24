@@ -4,7 +4,9 @@
   "description": "Crecion de un  backend del portal de laboratorio, responsable de gestionar la lógica del negocio y la interacción con la base de datos. Proporciona una API RESTful que permite la comunicación entre el front-end y los servicios del laboratorio.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+     "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
