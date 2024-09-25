@@ -157,7 +157,7 @@ router.put('/:nombre', gruposController.actualizarGrupo);
  *       404:
  *         description: Grupo no encontrado
  */
-router.delete('/:nombre', gruposController.eliminarGrupo);
+router.delete('/:nombre', gruposController.desactivarGrupo);
 
 module.exports = router;
 

@@ -37,15 +37,18 @@ async function actualizarGrupo(nombre, body) {
     }
     return grupo;
 }
-
-// Eliminar un grupo por nombre
-async function eliminarGrupo(nombre) {
-    const grupo = await Grupo.findOneAndDelete({ nombre });
+// Desactivar un grupo por nombre
+async function desactivarGrupo(nombre) {
+    const grupo = await Grupo.findOneAndUpdate(
+        { nombre },
+        { activo: false }, // Actualiza el campo 'activo'
+        { new: true }
+    );
 
     if (!grupo) {
         throw new Error('Grupo no encontrado');
     }
-    return { message: 'Grupo eliminado' };
+    return { message: 'Grupo desactivado', grupo };
 }
 
 module.exports = {
@@ -53,5 +56,5 @@ module.exports = {
     obtenerGrupos,
     obtenerGrupoPorNombre,
     actualizarGrupo,
-    eliminarGrupo,
+    desactivarGrupo,
 };

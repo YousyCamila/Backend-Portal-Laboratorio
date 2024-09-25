@@ -32,20 +32,27 @@ async function actualizarOrden(id, body) {
     return orden;
 }
 
-// Eliminar una orden por ID
-async function eliminarOrden(id) {
-    const orden = await Orden.findByIdAndDelete(id);
+// Desactivar un grupo por nombre
+async function desactivarOrden(id) {
+    const orden = await Orden.findById(id);
 
     if (!orden) {
         throw new Error('Orden no encontrada');
     }
-    return { message: 'Orden eliminada' };
+
+    // Cambia el estado de la orden a desactivada
+    orden.estado = 'desactivada'; // Asegúrate de tener un campo para el estado
+    await orden.save();
+
+    return { message: 'Orden desactivada', orden };
 }
+
+
 
 module.exports = {
     crearOrden,
     obtenerOrdenes,
     obtenerOrdenPorId,
     actualizarOrden,
-    eliminarOrden,
+    desactivarOrden,
 };

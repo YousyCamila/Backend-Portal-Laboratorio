@@ -167,6 +167,6 @@ router.put('/:id', ordenController.actualizarOrden);
  *       404:
  *         description: Orden no encontrada
  */
-router.delete('/:id', ordenController.eliminarOrden);
+router.delete('/:id', ordenController.desactivarOrden);
 
 module.exports = router;

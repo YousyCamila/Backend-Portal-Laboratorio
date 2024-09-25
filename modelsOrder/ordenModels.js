@@ -25,6 +25,7 @@ const ordenSchema = new mongoose.Schema({
     type: [resultadoSchema],
     required: true,
   },
+  activo: { type: Boolean, default: true }
 });
 
 const Orden = mongoose.model('Orden', ordenSchema);

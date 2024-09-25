@@ -54,14 +54,15 @@ const actualizarGrupo = async (req, res) => {
 };
 
 // Controlador para eliminar un grupo por nombre
-const eliminarGrupo = async (req, res) => {
+const desactivarGrupo = async (req, res) => {
     const { nombre } = req.params;
     try {
-        const result = await logic.eliminarGrupo(nombre);
+        const result = await logic.desactivarGrupo(nombre);
         res.json(result);
     } catch (err) {
         res.status(404).json({ error: err.message });
     }
+    
 };
 
 // Exportar los controladores
@@ -70,5 +71,5 @@ module.exports = {
     crearGrupo,
     obtenerGrupoPorNombre,
     actualizarGrupo,
-    eliminarGrupo,
+    desactivarGrupo,
 };

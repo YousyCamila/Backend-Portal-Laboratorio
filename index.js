@@ -3,7 +3,7 @@ const cors = require('cors');
 const dotenv = require('dotenv'); 
 const connectDB = require('./config/db');
 dotenv.config(); // Carga las variables del archivo .env
-const { verifyRecaptcha } = require('./controllers/recaptchaController');
+
 connectDB();
 
 
@@ -19,7 +19,7 @@ const ordenRoutes = require('./routesOrders/ordenRoutes'); // Asegúrate de que 
 const procedimientoRoutes = require('./routesOrders/procedimientoRoutes'); // Asegúrate de que la ruta sea correcta
 const resultadoRoutes = require('./routesOrders/resultadoRoutes'); // Asegúrate de que la ruta sea correcta
 const usersRoutes = require ('./routesPersona/usuarioRoutes');
-
+const { verifyRecaptcha } = require('./controllersOrders/recaptchaController');
 
 // Inicializar la aplicación Express
 const app = express();

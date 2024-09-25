@@ -39,14 +39,16 @@ const actualizarOrden = async (req, res) => {
     }
 };
 
-const eliminarOrden = async (req, res) => {
+
+const desactivarOrden = async (req, res) => {
+    const { id } = req.params;
     try {
-        const { id } = req.params;
-        const orden = await logic.eliminarOrden(id);
-        res.json(orden);
+        const result = await logic.desactivarOrden(id);
+        res.json(result);
     } catch (err) {
-        res.status(404).json({ error: 'Orden no encontrada' });
+        res.status(404).json({ error: err.message });
     }
+    
 };
 
 module.exports = {
@@ -54,5 +56,5 @@ module.exports = {
     listarOrdenes,
     obtenerOrdenPorId,
     actualizarOrden,
-    eliminarOrden,
+    desactivarOrden,
 };
