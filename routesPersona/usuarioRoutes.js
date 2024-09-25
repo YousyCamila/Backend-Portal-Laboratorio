@@ -1,11 +1,10 @@
-// routes/authRoutes.js
 const express = require('express');
+const { registrar, iniciarSesion } = require('../controllerPersona/usuarioController');
 const router = express.Router();
-const usuarioController = require('../controllerPersona/usuarioController');
 
 /**
  * @swagger
- * /users/registrar:
+ * /users/register:
  *   post:
  *     summary: Registrar un nuevo usuario
  *     tags: ["Autenticación"]
@@ -32,16 +31,16 @@ const usuarioController = require('../controllerPersona/usuarioController');
  *     responses:
  *       201:
  *         description: Usuario registrado exitosamente
+ *       400:
+ *         description: Error al registrar el usuario
  *       409:
  *         description: El usuario ya existe
- *       500:
- *         description: Error interno del servidor
  */
-router.post('/registrar', usuarioController.registrar);
+router.post('/register', registrar);
 
 /**
  * @swagger
- * /users/iniciar-sesion:
+ * /users/login:
  *   post:
  *     summary: Iniciar sesión de un usuario
  *     tags: ["Autenticación"]
@@ -58,6 +57,10 @@ router.post('/registrar', usuarioController.registrar);
  *               password:
  *                 type: string
  *                 example: "miContraseñaSegura"
+ *               fechaNacimiento:
+ *                 type: string
+ *                 format: date
+ *                 example: "1990-01-01"
  *     responses:
  *       200:
  *         description: Inicio de sesión exitoso
@@ -69,11 +72,9 @@ router.post('/registrar', usuarioController.registrar);
  *                 token:
  *                   type: string
  *                   example: "eyJhbGciOiJIUzI1NiIsInR..."
- *       401:
+ *       400:
  *         description: Usuario no encontrado o contraseña incorrecta
- *       500:
- *         description: Error interno del servidor
  */
-router.post('/iniciar-sesion', usuarioController.iniciarSesion);
+router.post('/login', iniciarSesion);
 
 module.exports = router;
