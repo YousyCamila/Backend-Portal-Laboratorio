@@ -1,7 +1,7 @@
 // routesOrders/ordenRoutes.js
 const express = require('express');
 const router = express.Router();
-const ordenController = require('../controllersOrders/ordenController');
+const ordenController = require('../controllers/ordenController');
 
 /**
  * @swagger

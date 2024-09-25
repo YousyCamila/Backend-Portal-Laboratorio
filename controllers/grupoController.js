@@ -1,5 +1,5 @@
 // controllersOrders/grupoController.js
-const logic = require('../logicOrders/grupoLogic');
+const logic = require('../logic/grupoLogic');
 
 // Controlador para listar todos los grupos
 const listarGrupos = async (req, res) => {

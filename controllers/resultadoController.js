@@ -1,4 +1,4 @@
-const logic = require('../logicOrders/resultadoLogic');
+const logic = require('../logic/resultadoLogic');
 
 const crearResultado = async (req, res) => {
   try {

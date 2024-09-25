@@ -1,5 +1,5 @@
 // controllersOrders/ordenController.js
-const logic = require('../logicOrders/ordenLogic');
+const logic = require('../logic/ordenLogic');
 
 const crearOrden = async (req, res) => {
     try {

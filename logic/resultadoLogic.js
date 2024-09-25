@@ -1,4 +1,4 @@
-const Result = require('../modelsOrder/resultadoModels');
+const Result = require('../models/resultadoModels');
 
 // Crear un nuevo resultado de prueba
 async function crearResultado(body) {

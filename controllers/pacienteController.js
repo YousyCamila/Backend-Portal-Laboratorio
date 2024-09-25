@@ -1,5 +1,5 @@
-const logic = require('../logicPersona/pacienteLogic'); // Asegúrate de que la ruta sea correcta
-const { pacienteSchemaValidation } = require('../validationsPersona/pacienteValidations'); // Suponiendo que tienes un esquema de validación
+const logic = require('../logic/pacienteLogic'); // Asegúrate de que la ruta sea correcta
+const { pacienteSchemaValidation } = require('../validations/pacienteValidations'); // Suponiendo que tienes un esquema de validación
 
 // Controlador para listar todos los pacientes
 const listarPaciente = async (req, res) => {

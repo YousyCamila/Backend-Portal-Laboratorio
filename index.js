@@ -12,14 +12,14 @@ const { swaggerUi, swaggerSpec } = require('./swagger/swagger'); // Swagger Spec
 const swaggerUI = require('swagger-ui-express');
 
 // Importar las rutas
-const pacienteRoutes = require('./routesPersona/pacienteRoutes');
-const profesionalesRoutes = require('./routesPersona/profesionalRoutes'); // Asegúrate de que la ruta sea correcta
-const grupoRoutes = require('./routesOrders/grupoRoutes'); // Asegúrate de que la ruta sea correcta
-const ordenRoutes = require('./routesOrders/ordenRoutes'); // Asegúrate de que la ruta sea correcta
-const procedimientoRoutes = require('./routesOrders/procedimientoRoutes'); // Asegúrate de que la ruta sea correcta
-const resultadoRoutes = require('./routesOrders/resultadoRoutes'); // Asegúrate de que la ruta sea correcta
-const usersRoutes = require ('./routesPersona/usuarioRoutes');
-const { verifyRecaptcha } = require('./controllersOrders/recaptchaController');
+const pacienteRoutes = require('./routes/pacienteRoutes');
+const profesionalesRoutes = require('./routes/profesionalRoutes'); // Asegúrate de que la ruta sea correcta
+const grupoRoutes = require('./routes/grupoRoutes'); // Asegúrate de que la ruta sea correcta
+const ordenRoutes = require('./routes/ordenRoutes'); // Asegúrate de que la ruta sea correcta
+const procedimientoRoutes = require('./routes/procedimientoRoutes'); // Asegúrate de que la ruta sea correcta
+const resultadoRoutes = require('./routes/resultadoRoutes'); // Asegúrate de que la ruta sea correcta
+const usersRoutes = require ('./routes/usuarioRoutes');
+const { verifyRecaptcha } = require('./controllers/recaptchaController');
 
 // Inicializar la aplicación Express
 const app = express();

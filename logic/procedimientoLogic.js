@@ -1,5 +1,5 @@
 // logic/procedimientoLogic.js
-const Procedimiento = require('../modelsOrder/procedimientoModels');
+const Procedimiento = require('../models/procedimientoModels');
 
 const crearProcedimiento = async (data) => {
   const procedimiento = new Procedimiento(data);

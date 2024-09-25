@@ -1,5 +1,5 @@
 // logicOrders/grupoLogic.js
-const Grupo = require('../modelsOrder/grupoModels');
+const Grupo = require('../models/grupoModels');
 
 // Crear un nuevo grupo
 async function crearGrupo(body) {

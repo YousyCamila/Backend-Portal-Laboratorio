@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const User = require('../modelsPersona/usuarioModel'); // Asegúrate de que la ruta sea correcta
+const User = require('../models/usuarioModel'); // Asegúrate de que la ruta sea correcta
 
 // Función para validar la fecha de nacimiento
 const esFechaNacimientoValida = (fechaNacimiento, tipoIdentificacion) => {

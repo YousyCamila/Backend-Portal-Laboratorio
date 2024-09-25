@@ -1,7 +1,7 @@
 // routesOrders/grupoRoutes.js
 const express = require('express');
 const router = express.Router();
-const gruposController = require('../controllersOrders/grupoController');
+const gruposController = require('../controllers/grupoController');
 
 // Crear un nuevo grupo
 /**

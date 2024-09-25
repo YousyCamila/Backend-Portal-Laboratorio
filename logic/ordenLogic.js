@@ -1,5 +1,5 @@
 // logicOrders/ordenLogic.js
-const Orden = require('../modelsOrder/ordenModels');
+const Orden = require('../models/ordenModels');
 
 // Crear una nueva orden
 async function crearOrden(body) {

@@ -1,7 +1,7 @@
 
 const express = require('express');
 const router = express.Router();
-const procedimientoController = require('../controllersOrders/procedimientoController');
+const procedimientoController = require('../controllers/procedimientoController');
 
 /**
  * @swagger

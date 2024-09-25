@@ -1,5 +1,5 @@
 // controllers/procedimientoController.js
-const logic = require('../logicOrders/procedimientoLogic');
+const logic = require('../logic/procedimientoLogic');
 
 const crearProcedimiento = async (req, res) => {
   try {

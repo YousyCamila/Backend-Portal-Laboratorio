@@ -1,5 +1,5 @@
 // pacienteController.js
-const Paciente = require('../modelsPersona/pacienteModels');
+const Paciente = require('../models/pacienteModels');
 
 // Crear un nuevo paciente
 async function crearPaciente(body) {

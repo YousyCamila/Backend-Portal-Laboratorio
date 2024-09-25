@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const resultadoController = require('../controllersOrders/resultadoController');
+const resultadoController = require('../controllers/resultadoController');
 
 // Crear un nuevo resultado
 /**

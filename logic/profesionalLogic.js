@@ -1,5 +1,5 @@
 // profesionalController.js
-const Profesional = require('../modelsPersona/profesionalModels');
+const Profesional = require('../models/profesionalModels');
 
 // Crear un nuevo profesional
 async function crearProfesional(body) {

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const profesionalController = require('../controllerPersona/profesionalController');
+const profesionalController = require('../controllers/profesionalController');
 
 // Crear un nuevo profesional
 /**
