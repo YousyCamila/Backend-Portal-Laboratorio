@@ -1,17 +1,20 @@
+// middleware/verifyToken.js
 const jwt = require('jsonwebtoken');
 
 const verifyToken = (req, res, next) => {
-  const token = req.header('Authorization')?.replace('Bearer ', '');
-  if (!token) return res.status(403).send('Token no proporcionado');
+    const token = req.headers['authorization'];
 
-  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-    if (err) return res.status(403).send('Token no válido');
-    req.user = user;
-    next();
-  });
+    if (!token) {
+        return res.status(403).json({ error: 'Se requiere un token para acceder a esta ruta.' });
+    }
+
+    jwt.verify(token.split(' ')[1], process.env.JWT_SECRET, (err, decoded) => {
+        if (err) {
+            return res.status(401).json({ error: 'Token inválido.' });
+        }
+        req.userId = decoded.id; // Guardar el ID del usuario en la solicitud
+        next();
+    });
 };
 
-// Usar este middleware en rutas protegidas
-app.get('/api/protegida', verifyToken, (req, res) => {
-  res.send('Esta es una ruta protegida');
-});
+module.exports = verifyToken;

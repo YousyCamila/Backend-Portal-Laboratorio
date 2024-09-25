@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv'); 
-const userRoutes = require('./routesPersona/userRoutes');
 const connectDB = require('./config/db');
 dotenv.config(); // Carga las variables del archivo .env
 connectDB();
@@ -18,7 +17,7 @@ const grupoRoutes = require('./routesOrders/grupoRoutes'); // Asegúrate de que 
 const ordenRoutes = require('./routesOrders/ordenRoutes'); // Asegúrate de que la ruta sea correcta
 const procedimientoRoutes = require('./routesOrders/procedimientoRoutes'); // Asegúrate de que la ruta sea correcta
 const resultadoRoutes = require('./routesOrders/resultadoRoutes'); // Asegúrate de que la ruta sea correcta
-
+const usersRoutes = require ('./routesPersona/usuarioRoutes');
 
 
 // Inicializar la aplicación Express
@@ -45,7 +44,8 @@ app.use('/api/grupo', grupoRoutes);
 app.use('/api/orden', ordenRoutes);
 app.use('/api/procedimiento', procedimientoRoutes);
 app.use('/api/resultado', resultadoRoutes);
-app.use('/api/user', userRoutes);
+app.use('/api/users', usersRoutes);
+
 
 const port = 3000;
 
