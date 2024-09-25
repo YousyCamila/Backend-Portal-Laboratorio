@@ -31,20 +31,24 @@ async function actualizarResultado(prueba, body) {
     return resultado;
 }
 
-// Eliminar un resultado por nombre de prueba
-async function eliminarResultado(prueba) {
-    const resultado = await Result.findOneAndDelete({ prueba });
+// Desactivar un resultado por nombre de prueba
+const desactivarResultado = async (nombre) => {
+    const resultado = await Result.findOneAndUpdate(
+        { nombre },
+        { activo: false }, // Cambia el estado a inactivo
+        { new: true }
+    );
 
     if (!resultado) {
         throw new Error('Resultado no encontrado');
     }
-    return { message: 'Resultado eliminado' };
-}
+    return resultado; // Devuelve el resultado actualizado
+};
 
 module.exports = {
     crearResultado,
     obtenerResultados,
     obtenerResultadoPorPrueba,
     actualizarResultado,
-    eliminarResultado,
+    desactivarResultado,
 };

@@ -38,20 +38,26 @@ const actualizarResultado = async (req, res) => {
   }
 };
 
-const eliminarResultado = async (req, res) => {
+const desactivarResultado = async (req, res) => {
+  const { nombre } = req.params;
+
   try {
-    const { prueba } = req.params;
-    const resultado = await logic.eliminarResultado(prueba);
-    res.json(resultado);
+      const procedimiento = await logic.desactivarResultado(nombre);
+      res.json({ message: 'Resultado desactivado exitosamente', procedimiento });
   } catch (err) {
-    res.status(404).json({ error: 'Resultado no encontrado' });
+      if (err.message === 'Resultado no encontrado') {
+          return res.status(404).json({ error: 'Resultado no encontrado' });
+      }
+      console.error(err);
+      res.status(500).json({ error: 'Error interno del servidor', details: err.message });
   }
 };
+
 
 module.exports = {
   crearResultado,
   listarResultados,
   obtenerResultadoPorPrueba,
   actualizarResultado,
-  eliminarResultado,
+  desactivarResultado,
 };

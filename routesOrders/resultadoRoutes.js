@@ -167,6 +167,6 @@ router.put('/:prueba', resultadoController.actualizarResultado);
  *       404:
  *         description: Resultado no encontrado
  */
-router.delete('/:prueba', resultadoController.eliminarResultado);
+router.delete('/:prueba', resultadoController.desactivarResultado);
 
 module.exports = router;
