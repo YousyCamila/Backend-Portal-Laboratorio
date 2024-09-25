@@ -16,9 +16,9 @@ const esFechaNacimientoValida = (fechaNacimiento) => {
 
 // Función para registrar un nuevo usuario
 const registrar = async (req, res) => {
-    const { tipoIdentificacion, numeroIdentificacion, fechaNacimiento, password } = req.body;
+    const { tipoIdentificacion, numeroIdentificacion, fechaNacimiento, password, rol } = req.body;
 
-    if (!tipoIdentificacion || !numeroIdentificacion || !fechaNacimiento || !password) {
+    if (!tipoIdentificacion || !numeroIdentificacion || !fechaNacimiento || !password || !rol) {
         return res.status(400).json({ error: 'Todos los campos son requeridos.' });
     }
 
@@ -38,6 +38,7 @@ const registrar = async (req, res) => {
             numeroIdentificacion,
             fechaNacimiento,
             password: hashedPassword,
+            rol, // Almacena el rol
         });
 
         await nuevoUsuario.save();
@@ -66,12 +67,10 @@ const iniciarSesion = async (req, res) => {
             return res.status(401).json({ error: 'Usuario o contraseña incorrectos.' });
         }
 
-        // Verifica el tipo de identificación
         if (usuario.tipoIdentificacion !== tipoIdentificacion) {
             return res.status(400).json({ error: 'Tipo de identificación incorrecto.' });
         }
 
-        // Verifica la fecha de nacimiento almacenada
         if (new Date(usuario.fechaNacimiento).getTime() !== new Date(fechaNacimiento).getTime()) {
             return res.status(400).json({ error: 'La fecha de nacimiento es incorrecta.' });
         }
@@ -81,7 +80,7 @@ const iniciarSesion = async (req, res) => {
             return res.status(401).json({ error: 'Usuario o contraseña incorrectos.' });
         }
 
-        const token = jwt.sign({ id: usuario._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign({ id: usuario._id, rol: usuario.rol }, process.env.JWT_SECRET, { expiresIn: '1h' }); // Incluye el rol en el token
         res.json({ token });
     } catch (err) {
         console.error(err);

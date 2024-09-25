@@ -19,6 +19,9 @@ const UserSchema = new mongoose.Schema({
     type: String, 
     required: true 
   },
+  rol: { 
+    type: String, enum: ['paciente', 'profesional'], 
+    required: true }, 
  
   activo: { 
     type: Boolean, 

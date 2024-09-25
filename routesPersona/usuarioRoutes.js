@@ -2,12 +2,13 @@ const express = require('express');
 const { registrar, iniciarSesion } = require('../controllerPersona/usuarioController');
 const router = express.Router();
 
+
 /**
  * @swagger
  * /users/register:
  *   post:
  *     summary: Registrar un nuevo usuario
- *     tags: ["Autenticación"]
+ *     tags: [Usuarios]
  *     requestBody:
  *       required: true
  *       content:
@@ -17,22 +18,23 @@ const router = express.Router();
  *             properties:
  *               tipoIdentificacion:
  *                 type: string
- *                 example: "Cédula de ciudadanía"
  *               numeroIdentificacion:
  *                 type: string
- *                 example: "123456789"
  *               fechaNacimiento:
  *                 type: string
  *                 format: date
- *                 example: "2000-01-01"
  *               password:
  *                 type: string
- *                 example: "miContraseñaSegura"
+ *               rol:
+ *                 type: string
+ *                 enum: [paciente, profesional]
  *     responses:
  *       201:
- *         description: Usuario registrado
+ *         description: Usuario registrado exitosamente
  *       400:
- *         description: Error al registrar el usuario
+ *         description: Error en la solicitud
+ *       409:
+ *         description: Conflicto, usuario ya existe
  */
 router.post('/register', registrar);
 
@@ -41,7 +43,7 @@ router.post('/register', registrar);
  * /users/login:
  *   post:
  *     summary: Iniciar sesión de un usuario
- *     tags: ["Autenticación"]
+ *     tags: [Usuarios]
  *     requestBody:
  *       required: true
  *       content:
@@ -51,17 +53,13 @@ router.post('/register', registrar);
  *             properties:
  *               tipoIdentificacion:
  *                 type: string
- *                 example: "Cédula de ciudadanía"
  *               numeroIdentificacion:
  *                 type: string
- *                 example: "123456789"
+ *               password:
+ *                 type: string
  *               fechaNacimiento:
  *                 type: string
  *                 format: date
- *                 example: "2000-01-01"
- *               password:
- *                 type: string
- *                 example: "miContraseñaSegura"
  *     responses:
  *       200:
  *         description: Inicio de sesión exitoso
@@ -72,9 +70,10 @@ router.post('/register', registrar);
  *               properties:
  *                 token:
  *                   type: string
- *                   example: "eyJhbGciOiJIUzI1NiIsInR..."
  *       400:
- *         description: Usuario no encontrado o contraseña incorrecta
+ *         description: Error en la solicitud
+ *       401:
+ *         description: Usuario o contraseña incorrectos
  */
 router.post('/login', iniciarSesion);
 
