@@ -50,9 +50,9 @@ const registrar = async (req, res) => {
 
 // Función para iniciar sesión
 const iniciarSesion = async (req, res) => {
-    const { numeroIdentificacion, password, fechaNacimiento } = req.body;
+    const { tipoIdentificacion, numeroIdentificacion, password, fechaNacimiento } = req.body;
 
-    if (!numeroIdentificacion || !password || !fechaNacimiento) {
+    if (!tipoIdentificacion || !numeroIdentificacion || !password || !fechaNacimiento) {
         return res.status(400).json({ error: 'Todos los campos son requeridos.' });
     }
 
@@ -64,6 +64,11 @@ const iniciarSesion = async (req, res) => {
         const usuario = await User.findOne({ numeroIdentificacion });
         if (!usuario) {
             return res.status(401).json({ error: 'Usuario o contraseña incorrectos.' });
+        }
+
+        // Verifica el tipo de identificación
+        if (usuario.tipoIdentificacion !== tipoIdentificacion) {
+            return res.status(400).json({ error: 'Tipo de identificación incorrecto.' });
         }
 
         // Verifica la fecha de nacimiento almacenada
@@ -85,3 +90,4 @@ const iniciarSesion = async (req, res) => {
 };
 
 module.exports = { registrar, iniciarSesion };
+

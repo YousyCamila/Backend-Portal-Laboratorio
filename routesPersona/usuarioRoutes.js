@@ -24,17 +24,15 @@ const router = express.Router();
  *               fechaNacimiento:
  *                 type: string
  *                 format: date
- *                 example: "1990-01-01"
+ *                 example: "2000-01-01"
  *               password:
  *                 type: string
  *                 example: "miContraseñaSegura"
  *     responses:
  *       201:
- *         description: Usuario registrado exitosamente
+ *         description: Usuario registrado
  *       400:
  *         description: Error al registrar el usuario
- *       409:
- *         description: El usuario ya existe
  */
 router.post('/register', registrar);
 
@@ -51,16 +49,19 @@ router.post('/register', registrar);
  *           schema:
  *             type: object
  *             properties:
+ *               tipoIdentificacion:
+ *                 type: string
+ *                 example: "Cédula de ciudadanía"
  *               numeroIdentificacion:
  *                 type: string
  *                 example: "123456789"
- *               password:
- *                 type: string
- *                 example: "miContraseñaSegura"
  *               fechaNacimiento:
  *                 type: string
  *                 format: date
- *                 example: "1990-01-01"
+ *                 example: "2000-01-01"
+ *               password:
+ *                 type: string
+ *                 example: "miContraseñaSegura"
  *     responses:
  *       200:
  *         description: Inicio de sesión exitoso

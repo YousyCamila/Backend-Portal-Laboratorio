@@ -19,11 +19,7 @@ const UserSchema = new mongoose.Schema({
     type: String, 
     required: true 
   },
-  username: { // Asegúrate de que esta propiedad exista
-    type: String,
-    required: true,
-    unique: true,
-  },
+ 
   activo: { 
     type: Boolean, 
     default: true 
