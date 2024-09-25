@@ -3,15 +3,23 @@ const jwt = require('jsonwebtoken');
 const User = require('../modelsPersona/usuarioModel'); // Asegúrate de que la ruta sea correcta
 
 // Función para validar la fecha de nacimiento
-const esFechaNacimientoValida = (fechaNacimiento) => {
+const esFechaNacimientoValida = (fechaNacimiento, tipoIdentificacion) => {
     const fecha = new Date(fechaNacimiento);
-    const edadMinima = 18; // Define la edad mínima
     const hoy = new Date();
     const edad = hoy.getFullYear() - fecha.getFullYear();
     const mes = hoy.getMonth() - fecha.getMonth();
 
-    // Verifica si la fecha es válida y si el usuario tiene al menos 18 años
-    return fecha instanceof Date && !isNaN(fecha) && (edad > edadMinima || (edad === edadMinima && mes > 0) || (edad === edadMinima && mes === 0 && hoy.getDate() >= fecha.getDate()));
+    // Verifica si la fecha es válida
+    if (!(fecha instanceof Date) || isNaN(fecha)) {
+        return false;
+    }
+
+    // Permitir menores de edad solo con tarjeta de identidad o pasaporte
+    if (tipoIdentificacion === 'Cédula de ciudadanía' && edad < 18) {
+        return false;
+    }
+
+    return true; // La fecha es válida
 };
 
 // Función para registrar un nuevo usuario
