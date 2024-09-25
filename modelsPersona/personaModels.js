@@ -27,7 +27,7 @@ const PersonaSchema = new mongoose.Schema({
   },
   sexoBiologico: {
     type: String,
-    enum: ['Masculino', 'Femenino', 'Otro'], // Opciones de sexo biológico
+    enum: ['Masculino', 'Femenino'], // Opciones de sexo biológico
     required: true,
   },
   direccion: {

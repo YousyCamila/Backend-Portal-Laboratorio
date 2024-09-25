@@ -51,6 +51,10 @@ const profesionalController = require('../controllerPersona/profesionalControlle
  *               especialidad:
  *                 type: string
  *                 example: "Medicina General"
+ *               fechaNacimiento:
+ *                 type: string
+ *                 format: date
+ *                 example: "1990-01-01"
  *     responses:
  *       201:
  *         description: Profesional creado exitosamente
@@ -111,6 +115,10 @@ router.post('/', profesionalController.crearProfesional);
  *                   especialidad:
  *                     type: string
  *                     example: "Medicina General"
+ *                   fechaNacimiento:
+ *                     type: string
+ *                     format: date
+ *                     example: "1990-01-01"
  *       204:
  *         description: No hay contenido
  */
@@ -171,6 +179,10 @@ router.get('/', profesionalController.listarProfesionales);
  *                 especialidad:
  *                   type: string
  *                   example: "Medicina General"
+ *                 fechaNacimiento:
+ *                   type: string
+ *                   format: date
+ *                   example: "1990-01-01"
  *       404:
  *         description: Profesional no encontrado
  */
@@ -203,7 +215,10 @@ router.get('/:email', profesionalController.obtenerProfesionalPorEmail);
  *               email:
  *                 type: string
  *                 example: "juan.perez@example.com"
- *           
+ *               fechaNacimiento:
+ *                 type: string
+ *                 format: date
+ *                 example: "1990-01-01"
  *     responses:
  *       200:
  *         description: Profesional actualizado

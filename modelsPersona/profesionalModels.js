@@ -6,6 +6,10 @@ const ProfesionalSchema = new mongoose.Schema({
     type: String,
     required: true, // Obligatorio para profesionales
   },
+  fechaNacimiento: {
+    type: Date,
+    required: true,
+  },
   activo: { 
     type: Boolean, 
     default: true 

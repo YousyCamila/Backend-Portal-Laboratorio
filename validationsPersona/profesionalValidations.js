@@ -10,6 +10,14 @@ const profesionalSchemaValidation = personaSchemaValidation.keys({
       'string.empty': 'La especialidad no puede estar vacía',
       'any.required': 'La especialidad es un campo requerido',
     }),
+  fechaNacimiento: Joi.date()
+    .iso()
+    .required()
+    .messages({
+      'date.base': 'La fecha de nacimiento debe ser una fecha válida',
+      'date.iso': 'La fecha de nacimiento debe estar en formato ISO',
+      'any.required': 'La fecha de nacimiento es un campo requerido',
+    }),
 });
 
 module.exports = { profesionalSchemaValidation };

@@ -29,6 +29,7 @@ const crearProfesional = async (req, res) => {
         telefonoMovil: body.telefonoMovil,
         email: body.email,
         especialidad: body.especialidad,
+        fechaNacimiento: body.fechaNacimiento,
     });
 
     if (error) {
