@@ -15,7 +15,7 @@ const swaggerUI = require('swagger-ui-express');
 const pacienteRoutes = require('./routesPersona/pacienteRoutes');
 const profesionalesRoutes = require('./routesPersona/profesionalRoutes'); // Asegúrate de que la ruta sea correcta
 const grupoRoutes = require('./routesOrders/grupoRoutes'); // Asegúrate de que la ruta sea correcta
-const ordensRoutes = require('./routesOrders/ordenRoutes'); // Asegúrate de que la ruta sea correcta
+const ordenRoutes = require('./routesOrders/ordenRoutes'); // Asegúrate de que la ruta sea correcta
 const procedimientoRoutes = require('./routesOrders/procedimientoRoutes'); // Asegúrate de que la ruta sea correcta
 const resultadoRoutes = require('./routesOrders/resultadoRoutes'); // Asegúrate de que la ruta sea correcta
 
@@ -42,7 +42,7 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 app.use('/api/paciente', pacienteRoutes);
 app.use('/api/profesional', profesionalesRoutes);
 app.use('/api/grupo', grupoRoutes);
-app.use('/api/ordens', ordensRoutes);
+app.use('/api/orden', ordenRoutes);
 app.use('/api/procedimiento', procedimientoRoutes);
 app.use('/api/resultado', resultadoRoutes);
 app.use('/api/user', userRoutes);

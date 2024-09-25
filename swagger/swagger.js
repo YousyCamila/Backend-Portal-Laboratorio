@@ -30,14 +30,9 @@ const swaggerDefinition = {
         name: 'Grupos',
         description: 'Operaciones relacionadas con el grupo de las ordenes',
       },
-      
-    {
-      name: 'Ordens',
-      description: 'Operaciones relacionadas con las ordenes',
-    },
     
     {
-      name: 'Procedimiento',
+      name: 'Procedimientos',
       description: 'Operaciones relacionadas con los procedimientos',
     },
     

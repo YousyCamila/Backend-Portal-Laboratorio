@@ -1,43 +1,172 @@
+// routesOrders/ordenRoutes.js
 const express = require('express');
 const router = express.Router();
 const ordenController = require('../controllersOrders/ordenController');
 
-// Listar órdenes por número de identificación
 /**
  * @swagger
- * /ordens/{numeroIdentificacion}:
- *   get:
- *     summary: Obtener órdenes por número de identificación
- *     tags: ["Ordenes"]
- *     parameters:
- *       - in: path
- *         name: numeroIdentificacion
- *         required: true
- *         schema:
- *           type: string
- *         description: Número de identificación del paciente
+ * tags:
+ *   name: Órdenes
+ *   description: API para manejar órdenes médicas
+ */
+
+/**
+/**
+ * @swagger
+ * /orden:
+ *   post:
+ *     summary: Crear una nueva orden
+ *     tags: [Órdenes]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               grupo:
+ *                 type: string
+ *                 example: "Química sanguínea"
+ *               procedimientos:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                 description: Lista de procedimientos de la orden
+ *                 example: ["Glucometría", "Hierro total", "Triglicéridos"]
+ *               resultados:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     prueba:
+ *                       type: string
+ *                       description: Nombre de la prueba
+ *                       example: "Glucometría"
+ *                     resultado:
+ *                       type: string
+ *                       description: Resultado de la prueba
+ *                       example: "Normal"
  *     responses:
- *       200:
- *         description: Lista de órdenes
+ *       201:
+ *         description: Orden creada
  *         content:
  *           application/json:
  *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   fechaOrden:
- *                     type: string
- *                     example: "2024-09-01T00:00:00.000Z"
- *                   codigoDocumento:
- *                     type: string
- *                     example: "ORD-12345"
- *                   numeroIdentificacion:
- *                     type: string
- *                     example: "1017543765"
- *       404:
- *         description: No se encontraron órdenes
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Orden creada exitosamente"
+ *       400:
+ *         description: Error en la solicitud
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Error de validación"
  */
-router.get('/ordens/:numeroIdentificacion', ordenController.obtenerOrdenes);
+
+ 
+router.post('/', ordenController.crearOrden);
+
+/**
+ * @swagger
+ * /orden:
+ *   get:
+ *     summary: Obtener todas las órdenes
+ *     tags: [Órdenes]
+ *     responses:
+ *       200:
+ *         description: Lista de órdenes
+ */
+router.get('/', ordenController.listarOrdenes);
+
+/**
+ * @swagger
+ * /orden/{id}:
+ *   get:
+ *     summary: Obtener una orden por ID
+ *     tags: [Órdenes]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID de la orden
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Orden encontrada
+ *       404:
+ *         description: Orden no encontrada
+ */
+router.get('/:id', ordenController.obtenerOrdenPorId);
+
+/**
+ * @swagger
+ * /orden/{id}:
+ *   put:
+ *     summary: Actualizar una orden por ID
+ *     tags: [Órdenes]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID de la orden
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               grupo:
+ *                 type: string
+ *               procedimientos:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *               resultados:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     prueba:
+ *                       type: string
+ *                     resultado:
+ *                       type: string
+ *     responses:
+ *       200:
+ *         description: Orden actualizada
+ *       404:
+ *         description: Orden no encontrada
+ */
+router.put('/:id', ordenController.actualizarOrden);
+
+/**
+ * @swagger
+ * /orden/{id}:
+ *   delete:
+ *     summary: Eliminar una orden por ID
+ *     tags: [Órdenes]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID de la orden
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Orden eliminada
+ *       404:
+ *         description: Orden no encontrada
+ */
+router.delete('/:id', ordenController.eliminarOrden);
 
 module.exports = router;

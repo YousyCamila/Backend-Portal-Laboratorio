@@ -5,7 +5,7 @@ const resultadoController = require('../controllersOrders/resultadoController');
 // Crear un nuevo resultado
 /**
  * @swagger
- * /resultados:
+ * /resultado:
  *   post:
  *     summary: Crear un nuevo resultado
  *     tags: ["Resultados"]
@@ -39,7 +39,7 @@ router.post('/', resultadoController.crearResultado);
 // Listar todos los resultados
 /**
  * @swagger
- * /resultados:
+ * /resultado:
  *   get:
  *     summary: Listar todos los resultados
  *     tags: ["Resultados"]
@@ -73,7 +73,7 @@ router.get('/', resultadoController.listarResultados);
 // Obtener un resultado por nombre de prueba
 /**
  * @swagger
- * /resultados/{prueba}:
+ * /resultado/{prueba}:
  *   get:
  *     summary: Obtener un resultado por nombre de prueba
  *     tags: ["Resultados"]
@@ -112,7 +112,7 @@ router.get('/:prueba', resultadoController.obtenerResultadoPorPrueba);
 // Actualizar un resultado por nombre de prueba
 /**
  * @swagger
- * /resultados/{prueba}:
+ * /resultado/{prueba}:
  *   put:
  *     summary: Actualizar un resultado por nombre de prueba
  *     tags: ["Resultados"]
@@ -150,7 +150,7 @@ router.put('/:prueba', resultadoController.actualizarResultado);
 // Eliminar un resultado por nombre de prueba
 /**
  * @swagger
- * /resultados/{prueba}:
+ * /resultado/{prueba}:
  *   delete:
  *     summary: Eliminar un resultado por nombre de prueba
  *     tags: ["Resultados"]

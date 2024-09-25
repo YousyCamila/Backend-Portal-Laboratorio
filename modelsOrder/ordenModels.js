@@ -1,14 +1,32 @@
+// models/Orden.js
 const mongoose = require('mongoose');
 
-const OrdenSchema = new mongoose.Schema({
-  fechaOrden: { type: Date, required: true },
-  codigoDocumento: { type: String, required: true },
-  numeroOrden: { type: String, required: true },
-  pacienteId: { type: mongoose.Schema.Types.ObjectId, ref: 'Paciente' },
-  // otros campos que necesites...
-}, {
-  timestamps: true,
+const resultadoSchema = new mongoose.Schema({
+  prueba: {
+    type: String,
+    required: true,
+  },
+  resultado: {
+    type: String,
+    required: true,
+  },
 });
 
-module.exports = mongoose.model('Orden', OrdenSchema);
+const ordenSchema = new mongoose.Schema({
+  grupo: {
+    type: String,
+    required: true,
+  },
+  procedimientos: {
+    type: [String],
+    required: true,
+  },
+  resultados: {
+    type: [resultadoSchema],
+    required: true,
+  },
+});
 
+const Orden = mongoose.model('Orden', ordenSchema);
+
+module.exports = Orden;
