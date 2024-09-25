@@ -3,6 +3,7 @@ const cors = require('cors');
 const dotenv = require('dotenv'); 
 const connectDB = require('./config/db');
 dotenv.config(); // Carga las variables del archivo .env
+const { verifyRecaptcha } = require('./controllers/recaptchaController');
 connectDB();
 
 
@@ -45,6 +46,8 @@ app.use('/api/orden', ordenRoutes);
 app.use('/api/procedimiento', procedimientoRoutes);
 app.use('/api/resultado', resultadoRoutes);
 app.use('/api/users', usersRoutes);
+
+app.post('/api/verify-recaptcha', verifyRecaptcha);
 
 
 const port = 3000;
