@@ -79,13 +79,18 @@ const actualizarProfesional = async (req, res) => {
 };
 
 // Controlador para eliminar un profesional por email
-const eliminarProfesional = async (req, res) => {
+const desactivarProfesional = async (req, res) => {
     const { email } = req.params;
+
     try {
-        const result = await logic.eliminarProfesional(email);
-        res.json(result);
+        const result = await logic.desactivarProfesional(email);
+        res.json({ message: 'Profesional desactivado exitosamente', result });
     } catch (err) {
-        res.status(404).json({ error: err.message });
+        if (err.message === 'Profesional no encontrado') {
+            return res.status(404).json({ error: 'Profesional no encontrado' });
+        }
+        console.error(err);
+        res.status(500).json({ error: 'Error interno del servidor', details: err.message });
     }
 };
 
@@ -95,5 +100,5 @@ module.exports = {
     crearProfesional,
     obtenerProfesionalPorEmail,
     actualizarProfesional,
-    eliminarProfesional,
+    desactivarProfesional,
 };

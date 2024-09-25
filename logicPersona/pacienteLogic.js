@@ -39,20 +39,24 @@ async function actualizarPaciente(email, body) {
 }
 
 // Eliminar un paciente por email
-async function eliminarPaciente(email) {
-    const paciente = await Paciente.findOneAndDelete({ email });
+// Desactivar un resultado por nombre de prueba
+async function desactivarPaciente(email) {
+    const paciente = await Paciente.findOneAndUpdate(
+        { email },
+        { activo: false }, // Cambiar el estado a inactivo
+        { new: true }
+    );
 
     if (!paciente) {
         throw new Error('Paciente no encontrado');
     }
-    return { message: 'Paciente eliminado' };
+    return paciente; // Devuelve el paciente actualizado
 }
-
 module.exports = {
     crearPaciente,
     obtenerPaciente,
     obtenerPacientePorEmail,
     actualizarPaciente,
-    eliminarPaciente,
+    desactivarPaciente,
 };
 

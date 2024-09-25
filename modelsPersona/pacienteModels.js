@@ -4,7 +4,11 @@ const Persona = require('./personaModels');
 const PacienteSchema = new mongoose.Schema({
   fechaNacimiento: {
     type: Date,
-    required: true, // Obligatorio para pacientes
+    required: true,
+  },
+  activo: { 
+    type: Boolean, 
+    default: true 
   },
 });
 
@@ -12,3 +16,4 @@ const PacienteSchema = new mongoose.Schema({
 PacienteSchema.add(Persona.schema);
 
 module.exports = mongoose.model('Paciente', PacienteSchema);
+

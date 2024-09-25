@@ -6,6 +6,10 @@ const ProfesionalSchema = new mongoose.Schema({
     type: String,
     required: true, // Obligatorio para profesionales
   },
+  activo: { 
+    type: Boolean, 
+    default: true 
+  },
 });
 
 // Combinar el esquema base con el nuevo

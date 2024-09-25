@@ -39,20 +39,23 @@ async function actualizarProfesional(email, body) {
 }
 
 // Eliminar un profesional por email
-async function eliminarProfesional(email) {
-    const profesional = await Profesional.findOneAndDelete({ email });
-
-    if (!profesional) {
-        throw new Error('Profesional no encontrado');
-    }
-    return { message: 'Profesional eliminado' };
+async function desactivarProfesional(email) {
+    return Profesional.findOneAndUpdate(
+        { email },
+        { activo: false }, // Cambia el estado a inactivo
+        { new: true }
+    ).then((profesional) => {
+        if (!profesional) {
+            throw new Error('Profesional no encontrado');
+        }
+        return profesional; // Devuelve el profesional actualizado
+    });
 }
-
 module.exports = {
     crearProfesional,
     obtenerProfesionales,
     obtenerProfesionalPorEmail,
     actualizarProfesional,
-    eliminarProfesional,
+    desactivarProfesional,
 };
 

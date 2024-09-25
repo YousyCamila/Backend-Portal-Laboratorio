@@ -81,15 +81,20 @@ const actualizarPaciente = async (req, res) => {
 };
 
 // Controlador para eliminar un paciente por email
-const eliminarPaciente = async (req, res) => {
+const desactivarPaciente = async (req, res) => {
     const { email } = req.params;
+  
     try {
-        const result = await logic.eliminarPaciente(email);
-        res.json(result);
+        const procedimiento = await logic.desactivarPaciente(email);
+        res.json({ message: 'Resultado desactivado exitosamente', procedimiento });
     } catch (err) {
-        res.status(404).json({ error: err.message });
+        if (err.message === 'Resultado no encontrado') {
+            return res.status(404).json({ error: 'Resultado no encontrado' });
+        }
+        console.error(err);
+        res.status(500).json({ error: 'Error interno del servidor', details: err.message });
     }
-};
+  };
 
 // Exportar los controladores
 module.exports = {
@@ -97,5 +102,5 @@ module.exports = {
     crearPaciente,
     obtenerPacientePorEmail,
     actualizarPaciente,
-    eliminarPaciente,
+    desactivarPaciente,
 };

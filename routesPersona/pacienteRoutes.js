@@ -264,6 +264,6 @@ router.put('/:email', pacienteController.actualizarPaciente);
  *       404:
  *         description: Paciente no encontrado
  */
-router.delete('/:email', pacienteController.eliminarPaciente);
+router.delete('/:email', pacienteController.desactivarPaciente);
 
 module.exports = router;

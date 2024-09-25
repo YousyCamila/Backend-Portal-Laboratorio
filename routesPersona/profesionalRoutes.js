@@ -234,6 +234,6 @@ router.put('/:email', profesionalController.actualizarProfesional);
  *       404:
  *         description: Profesional no encontrado
  */
-router.delete('/:email', profesionalController.eliminarProfesional);
+router.delete('/:email', profesionalController.desactivarProfesional);
 
 module.exports = router;
