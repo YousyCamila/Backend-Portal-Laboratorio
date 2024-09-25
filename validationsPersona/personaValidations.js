@@ -1,5 +1,13 @@
 const Joi = require('@hapi/joi');
 
+// Longitudes específicas de identificación según el tipo de documento en Colombia
+const LONGITUDES_DOCUMENTO = {
+  'Cédula de ciudadanía': 10,
+  'Tarjeta de identidad': 10,
+  'Pasaporte': 8,
+  'Otro': Joi.string().min(1), // Puede ser cualquier longitud
+};
+
 // Validaciones para el objeto Persona
 const personaSchemaValidation = Joi.object({
   tipoIdentificacion: Joi.string()
@@ -12,11 +20,18 @@ const personaSchemaValidation = Joi.object({
     }),
 
   numeroIdentificacion: Joi.string()
+    .pattern(/^\d+$/) // Solo permite números
     .required()
     .messages({
       'string.base': 'El número de identificación debe ser un texto',
       'string.empty': 'El número de identificación no puede estar vacío',
       'any.required': 'El número de identificación es un campo requerido',
+      'string.pattern.base': 'El número de identificación solo puede contener dígitos',
+    })
+    .when(Joi.ref('tipoIdentificacion'), {
+      is: 'Cédula de ciudadanía',
+      then: Joi.string().length(10),
+      otherwise: Joi.string().length(8) // Para 'Pasaporte' o otros tipos, ajustar según necesidad
     }),
 
   apellido1: Joi.string()
@@ -48,11 +63,11 @@ const personaSchemaValidation = Joi.object({
     }),
 
   sexoBiologico: Joi.string()
-    .valid('Masculino', 'Femenino', 'Otro')
+    .valid('Masculino', 'Femenino')
     .required()
     .messages({
       'string.base': 'El sexo biológico debe ser un texto',
-      'any.only': 'El sexo biológico debe ser uno de los siguientes: Masculino, Femenino, Otro',
+      'any.only': 'El sexo biológico debe ser uno de los siguientes: Masculino, Femenino',
       'any.required': 'El sexo biológico es un campo requerido',
     }),
 
@@ -65,11 +80,13 @@ const personaSchemaValidation = Joi.object({
     }),
 
   telefonoMovil: Joi.string()
+    .pattern(/^\d{10}$/) // Asegura que el teléfono móvil sea de 10 dígitos
     .required()
     .messages({
       'string.base': 'El teléfono móvil debe ser un texto',
       'string.empty': 'El teléfono móvil no puede estar vacío',
       'any.required': 'El teléfono móvil es un campo requerido',
+      'string.pattern.base': 'El teléfono móvil debe tener 10 dígitos',
     }),
 
   email: Joi.string()
