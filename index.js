@@ -20,6 +20,10 @@ const procedimientoRoutes = require('./routes/procedimientoRoutes'); // Asegúra
 const resultadoRoutes = require('./routes/resultadoRoutes'); // Asegúrate de que la ruta sea correcta
 const usersRoutes = require ('./routes/usuarioRoutes');
 const { verifyRecaptcha } = require('./controllers/recaptchaController');
+//const seedDatabase = require('./seeds/seed'); // Ajusta la ruta según tu estructura
+
+// Llama a la función para sembrar la base de datos (opcional)
+//seedDatabase();
 
 // Inicializar la aplicación Express
 const app = express();
