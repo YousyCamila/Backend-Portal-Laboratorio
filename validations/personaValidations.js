@@ -4,7 +4,7 @@ const Joi = require('@hapi/joi');
 const LONGITUDES_DOCUMENTO = {
   'Cédula de ciudadanía': 10,
   'Tarjeta de identidad': 10,
-  'Pasaporte': 8,
+  'Pasaporte': 9,
   'Otro': Joi.string().min(1), // Puede ser cualquier longitud
 };
 
@@ -20,18 +20,24 @@ const personaSchemaValidation = Joi.object({
     }),
 
   numeroIdentificacion: Joi.string()
-    .pattern(/^\d+$/) // Solo permite números
-    .required()
-    .messages({
-      'string.base': 'El número de identificación debe ser un texto',
-      'string.empty': 'El número de identificación no puede estar vacío',
-      'any.required': 'El número de identificación es un campo requerido',
-      'string.pattern.base': 'El número de identificación solo puede contener dígitos',
-    })
-    .when(Joi.ref('tipoIdentificacion'), {
-      is: 'Cédula de ciudadanía',
-      then: Joi.string().length(10),
-      otherwise: Joi.string().length(8) // Para 'Pasaporte' o otros tipos, ajustar según necesidad
+    .when('tipoIdentificacion', {
+      is: 'Pasaporte',
+      then: Joi.string().alphanum().length(9).required()
+        .messages({
+          'string.base': 'El número de pasaporte debe ser un texto alfanumérico',
+          'string.empty': 'El número de pasaporte no puede estar vacío',
+          'any.required': 'El número de pasaporte es un campo requerido',
+          'string.alphanum': 'El número de pasaporte solo puede contener letras y/o dígitos',
+          'string.length': 'El número de pasaporte debe tener 9 caracteres',
+        }),
+      otherwise: Joi.string().pattern(/^\d+$/).length(10).required()
+        .messages({
+          'string.base': 'El número de identificación debe ser un texto numérico',
+          'string.empty': 'El número de identificación no puede estar vacío',
+          'any.required': 'El número de identificación es un campo requerido',
+          'string.pattern.base': 'El número de identificación solo puede contener dígitos',
+          'string.length': 'El número de identificación debe tener 10 caracteres',
+        }),
     }),
 
   apellido1: Joi.string()
@@ -58,6 +64,7 @@ const personaSchemaValidation = Joi.object({
 
   nombre2: Joi.string()
     .optional()
+    .allow(null, '') // Permitir que sea opcional y también puede ser una cadena vacía o nulo
     .messages({
       'string.base': 'El segundo nombre debe ser un texto',
     }),

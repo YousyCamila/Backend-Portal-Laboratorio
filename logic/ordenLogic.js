@@ -1,5 +1,5 @@
 // logicOrders/ordenLogic.js
-const Orden = require('../models/ordenModels');
+const Orden = require('../models/ordenModels'); // Asegúrate de que la ruta es correcta
 
 // Crear una nueva orden
 async function crearOrden(body) {
@@ -32,7 +32,7 @@ async function actualizarOrden(id, body) {
     return orden;
 }
 
-// Desactivar un grupo por nombre
+// Desactivar una orden por ID
 async function desactivarOrden(id) {
     const orden = await Orden.findById(id);
 
@@ -41,13 +41,11 @@ async function desactivarOrden(id) {
     }
 
     // Cambia el estado de la orden a desactivada
-    orden.estado = 'desactivada'; // Asegúrate de tener un campo para el estado
+    orden.activo = false; // Asegúrate de que este campo existe
     await orden.save();
 
     return { message: 'Orden desactivada', orden };
 }
-
-
 
 module.exports = {
     crearOrden,

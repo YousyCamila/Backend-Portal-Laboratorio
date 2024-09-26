@@ -25,7 +25,12 @@ const ordenSchema = new mongoose.Schema({
     type: [resultadoSchema],
     required: true,
   },
-  activo: { type: Boolean, default: true }
+  activo: { type: Boolean, default: true },
+  paciente: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Paciente', // referencia al modelo Paciente
+    required: true,
+  },
 });
 
 const Orden = mongoose.model('Orden', ordenSchema);

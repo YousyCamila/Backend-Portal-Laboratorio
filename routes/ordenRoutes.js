@@ -11,7 +11,6 @@ const ordenController = require('../controllers/ordenController');
  */
 
 /**
-/**
  * @swagger
  * /orden:
  *   post:
@@ -46,6 +45,9 @@ const ordenController = require('../controllers/ordenController');
  *                       type: string
  *                       description: Resultado de la prueba
  *                       example: "Normal"
+ *               numeroIdentificacion:
+ *                 type: string
+ *                 example: "123456789"
  *     responses:
  *       201:
  *         description: Orden creada
@@ -68,8 +70,6 @@ const ordenController = require('../controllers/ordenController');
  *                   type: string
  *                   example: "Error de validación"
  */
-
- 
 router.post('/', ordenController.crearOrden);
 
 /**
@@ -81,8 +81,32 @@ router.post('/', ordenController.crearOrden);
  *     responses:
  *       200:
  *         description: Lista de órdenes
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   grupo:
+ *                     type: string
+ *                   procedimientos:
+ *                     type: array
+ *                     items:
+ *                       type: string
+ *                   resultados:
+ *                     type: array
+ *                     items:
+ *                       type: object
+ *                       properties:
+ *                         prueba:
+ *                           type: string
+ *                         resultado:
+ *                           type: string
+ *                   numeroIdentificacion:
+ *                     type: string
  */
-router.get('/', ordenController.listarOrdenes);
+router.get('/', ordenController.obtenerOrdenes);
 
 /**
  * @swagger
@@ -100,6 +124,28 @@ router.get('/', ordenController.listarOrdenes);
  *     responses:
  *       200:
  *         description: Orden encontrada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 grupo:
+ *                   type: string
+ *                 procedimientos:
+ *                   type: array
+ *                   items:
+ *                     type: string
+ *                 resultados:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       prueba:
+ *                         type: string
+ *                       resultado:
+ *                         type: string
+ *                 numeroIdentificacion:
+ *                   type: string
  *       404:
  *         description: Orden no encontrada
  */
