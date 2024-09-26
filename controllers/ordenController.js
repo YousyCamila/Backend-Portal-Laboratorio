@@ -4,7 +4,8 @@ const ordenLogic = require('../logic/ordenLogic');
 // Crear una nueva orden
 const crearOrden = async (req, res) => {
     try {
-        const orden = await ordenLogic.crearOrden(req.body);
+        const pacienteId = req.userId; // Obtén el ID del paciente desde el token
+        const orden = await ordenLogic.crearOrden(req.body, pacienteId);
         res.status(201).json(orden);
     } catch (error) {
         console.error(error);
@@ -12,10 +13,12 @@ const crearOrden = async (req, res) => {
     }
 };
 
-// Obtener todas las órdenes
+// Obtener todas las órdenes de un paciente
 const obtenerOrdenes = async (req, res) => {
+    const pacienteId = req.userId; // Obtén el ID del paciente desde el token
+
     try {
-        const ordenes = await ordenLogic.obtenerOrdenes();
+        const ordenes = await ordenLogic.obtenerOrdenesPorPaciente(pacienteId);
         res.status(200).json(ordenes);
     } catch (error) {
         console.error(error);

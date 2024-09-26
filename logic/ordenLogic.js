@@ -2,14 +2,17 @@
 const Orden = require('../models/ordenModels'); // Asegúrate de que la ruta es correcta
 
 // Crear una nueva orden
-async function crearOrden(body) {
-    const orden = new Orden(body);
+async function crearOrden(body, pacienteId) {
+    const orden = new Orden({
+        ...body,
+        paciente: pacienteId, // Asigna el ID del paciente a la orden
+    });
     return await orden.save();
 }
 
-// Obtener todas las órdenes
-async function obtenerOrdenes() {
-    return await Orden.find();
+// Obtener todas las órdenes de un paciente específico
+async function obtenerOrdenesPorPaciente(pacienteId) {
+    return await Orden.find({ paciente: pacienteId });
 }
 
 // Obtener una orden por ID
@@ -49,7 +52,7 @@ async function desactivarOrden(id) {
 
 module.exports = {
     crearOrden,
-    obtenerOrdenes,
+    obtenerOrdenesPorPaciente,
     obtenerOrdenPorId,
     actualizarOrden,
     desactivarOrden,
