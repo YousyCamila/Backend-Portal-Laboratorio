@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const User = require('../models/usuarioModel'); // Asegúrate de que la ruta sea correcta
+const Paciente = require('../models/pacienteModels'); // Importar el modelo Paciente
 
 // Función para validar la fecha de nacimiento
 const esFechaNacimientoValida = (fechaNacimiento, tipoIdentificacion) => {
@@ -30,7 +30,7 @@ const registrar = async (req, res) => {
         return res.status(400).json({ error: 'Todos los campos son requeridos.' });
     }
 
-    if (!esFechaNacimientoValida(fechaNacimiento)) {
+    if (!esFechaNacimientoValida(fechaNacimiento, tipoIdentificacion)) {
         return res.status(400).json({ error: 'Fecha de nacimiento no válida. Debe tener al menos 18 años.' });
     }
 
@@ -58,6 +58,7 @@ const registrar = async (req, res) => {
 };
 
 // Función para iniciar sesión
+// Función para iniciar sesión
 const iniciarSesion = async (req, res) => {
     const { tipoIdentificacion, numeroIdentificacion, password, fechaNacimiento } = req.body;
 
@@ -77,7 +78,10 @@ const iniciarSesion = async (req, res) => {
         }
 
         // Validar tipo de identificación y fecha de nacimiento
-        if (usuario.tipoIdentificacion !== tipoIdentificacion || new Date(usuario.fechaNacimiento).getTime() !== new Date(fechaNacimiento).getTime()) {
+        if (
+            usuario.tipoIdentificacion !== tipoIdentificacion || 
+            new Date(usuario.fechaNacimiento).getTime() !== new Date(fechaNacimiento).getTime()
+        ) {
             return res.status(400).json({ error: 'Tipo de identificación o fecha de nacimiento incorrectos.' });
         }
 
@@ -86,21 +90,24 @@ const iniciarSesion = async (req, res) => {
             return res.status(401).json({ error: 'Usuario o contraseña incorrectos.' });
         }
 
-        const token = jwt.sign({ id: usuario._id, rol: usuario.rol }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-        // Si es paciente, devolver sus datos y órdenes
+        // Si es paciente, devolver sus datos sin hacer el populate
         let pacienteData = null;
         if (usuario.rol === 'paciente') {
-            const paciente = await Paciente.findById(usuario._id).populate('ordenes'); // Asegúrate de que la relación esté establecida
-            pacienteData = paciente;
+            pacienteData = await Paciente.findOne({ numeroIdentificacion }); // Se eliminó el populate('ordenes')
+            if (!pacienteData) {
+                return res.status(404).json({ error: 'Paciente no encontrado.' });
+            }
         }
 
-        res.json({ token, paciente: pacienteData });
+        // Responder con los datos del paciente sin generar JWT
+        res.json({ paciente: pacienteData });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Error interno del servidor.', details: err.message });
     }
 };
 
-module.exports = { registrar, iniciarSesion };
 
+
+
+module.exports = { registrar, iniciarSesion };

@@ -1,62 +1,58 @@
-// require('dotenv').config();
 // const mongoose = require('mongoose');
-// const Orden = require('../models/ordenModels'); // Asegúrate de que la ruta es correcta
-// const Paciente = require('../models/pacienteModels'); // Asegúrate de que la ruta es correcta
+// const Orden = require('../models/Orden');
+// const Paciente = require('../models/pacienteModels');
 
+// // Conexión a la base de datos MongoDB
+// mongoose.connect('mongodb://localhost:27017/tu_base_de_datos', {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+// }).then(() => console.log('Conectado a MongoDB'))
+//   .catch((err) => console.error('Error al conectar a MongoDB:', err));
+
+// // Función para crear órdenes estáticas
 // const seedOrdenes = async () => {
-//   try {
-//     await mongoose.connect(process.env.MONGODB_URI, {
-//       useNewUrlParser: true,
-//       useUnifiedTopology: true
-//     });
+//     try {
+//         // Buscar un paciente específico por su ID (ajustar con un ID existente)
+//         const paciente = await Paciente.findOne({ numeroIdentificacion: '1234567890' }); // Cambia el número de identificación según tu paciente registrado
 
-//     console.log("Conexión a la base de datos exitosa");
+//         if (!paciente) {
+//             console.log('Paciente no encontrado');
+//             return;
+//         }
 
-//     // Limpiar órdenes existentes
-//     await Orden.deleteMany({}); 
-
-//     // Obtener todos los pacientes
-//     const pacientes = await Paciente.find(); 
-
-//     // Verificar si hay pacientes en la base de datos
-//     if (pacientes.length === 0) {
-//       console.log("No hay pacientes en la base de datos.");
-//       return;
-//     }
-
-//     // Sembrar 10 órdenes para cada paciente
-//     for (const paciente of pacientes) {
-//       for (let i = 0; i < 10; i++) {
-//         const orden = new Orden({
-//           grupo: "Química sanguínea",
-//           procedimientos: ["Glucometría", "Hierro total", "Triglicéridos"],
-//           resultados: [
+//         // Crear una orden estática
+//         const ordenesEstaticas = [
 //             {
-//               prueba: "Glucometría",
-//               resultado: Math.random() > 0.5 ? "Normal" : "Alterado"
+//                 grupo: 'Química Sanguínea',
+//                 procedimientos: ['Glucosa', 'Colesterol', 'Triglicéridos'],
+//                 resultados: [
+//                     { prueba: 'Glucosa', resultado: '85 mg/dL' },
+//                     { prueba: 'Colesterol', resultado: '200 mg/dL' },
+//                     { prueba: 'Triglicéridos', resultado: '150 mg/dL' },
+//                 ],
+//                 paciente: paciente._id, // Asociar al paciente
 //             },
 //             {
-//               prueba: "Hierro total",
-//               resultado: Math.random() > 0.5 ? "Normal" : "Bajo"
-//             },
-//             {
-//               prueba: "Triglicéridos",
-//               resultado: Math.random() > 0.5 ? "Normal" : "Alto"
+//                 grupo: 'Hematología',
+//                 procedimientos: ['Hemoglobina', 'Hematocrito'],
+//                 resultados: [
+//                     { prueba: 'Hemoglobina', resultado: '14 g/dL' },
+//                     { prueba: 'Hematocrito', resultado: '42%' },
+//                 ],
+//                 paciente: paciente._id, // Asociar al paciente
 //             }
-//           ],
-//           paciente: paciente._id // Relacionar la orden con el paciente
-//         });
+//         ];
 
-//         await orden.save(); // Guardar la orden
-//       }
+//         // Guardar las órdenes en la base de datos
+//         await Orden.insertMany(ordenesEstaticas);
+//         console.log('Órdenes estáticas creadas exitosamente');
+
+//     } catch (err) {
+//         console.error('Error al crear órdenes:', err);
+//     } finally {
+//         mongoose.connection.close();
 //     }
-
-//     console.log("Órdenes sembradas con éxito");
-//   } catch (error) {
-//     console.error("Error al sembrar la base de datos:", error);
-//   } finally {
-//     await mongoose.connection.close(); // Cerrar la conexión al final
-//   }
 // };
 
-// module.exports = seedOrdenes; // Exportar la función
+// // Ejecutar la función para crear órdenes estáticas
+// seedOrdenes();

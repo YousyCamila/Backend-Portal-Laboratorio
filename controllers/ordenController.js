@@ -1,5 +1,5 @@
-// controllers/ordenController.js
 const ordenLogic = require('../logic/ordenLogic');
+const Order = require('../models/ordenModels'); // Asegúrate de tener el modelo Order
 
 // Crear una nueva orden
 const crearOrden = async (req, res) => {
@@ -13,13 +13,26 @@ const crearOrden = async (req, res) => {
     }
 };
 
-// Obtener todas las órdenes de un paciente
+// Obtener todas las órdenes de un paciente con paginación, filtros y orden
 const obtenerOrdenes = async (req, res) => {
     const pacienteId = req.userId; // Obtén el ID del paciente desde el token
+    const { page = 1, sort = 'desc', orderNumber, fromDate, toDate } = req.query;
+    const limit = 10;
+    const skip = (page - 1) * limit;
+
+    // Filtro para búsqueda por número de orden o rango de fechas
+    const query = { pacienteId };
+    if (orderNumber) query.orderNumber = orderNumber;
+    if (fromDate && toDate) query.date = { $gte: fromDate, $lte: toDate };
 
     try {
-        const ordenes = await ordenLogic.obtenerOrdenesPorPaciente(pacienteId);
-        res.status(200).json(ordenes);
+        const ordenes = await Order.find(query)
+            .sort({ date: sort === 'asc' ? 1 : -1 })
+            .limit(limit)
+            .skip(skip);
+        const totalOrdenes = await Order.countDocuments(query);
+
+        res.status(200).json({ ordenes, totalPages: Math.ceil(totalOrdenes / limit) });
     } catch (error) {
         console.error(error);
         res.status(500).json({ mensaje: 'Error al obtener las órdenes', error: error.message });
@@ -35,7 +48,7 @@ const obtenerOrdenPorId = async (req, res) => {
         res.status(200).json(orden);
     } catch (error) {
         console.error(error);
-        res.status(404).json({ mensaje: error.message });
+        res.status(404).json({ mensaje: 'Orden no encontrada', error: error.message });
     }
 };
 
@@ -48,7 +61,7 @@ const actualizarOrden = async (req, res) => {
         res.status(200).json(orden);
     } catch (error) {
         console.error(error);
-        res.status(404).json({ mensaje: error.message });
+        res.status(404).json({ mensaje: 'Error al actualizar la orden', error: error.message });
     }
 };
 
@@ -61,7 +74,7 @@ const desactivarOrden = async (req, res) => {
         res.status(200).json(response);
     } catch (error) {
         console.error(error);
-        res.status(404).json({ mensaje: error.message });
+        res.status(404).json({ mensaje: 'Error al desactivar la orden', error: error.message });
     }
 };
 
