@@ -61,11 +61,12 @@ const registrar = async (req, res) => {
 const iniciarSesion = async (req, res) => {
     const { tipoIdentificacion, numeroIdentificacion, password, fechaNacimiento } = req.body;
 
+    // Validación de campos
     if (!tipoIdentificacion || !numeroIdentificacion || !password || !fechaNacimiento) {
         return res.status(400).json({ error: 'Todos los campos son requeridos.' });
     }
 
-    if (!esFechaNacimientoValida(fechaNacimiento)) {
+    if (!esFechaNacimientoValida(fechaNacimiento, tipoIdentificacion)) {
         return res.status(400).json({ error: 'Fecha de nacimiento no válida. Debe tener al menos 18 años.' });
     }
 
@@ -75,12 +76,9 @@ const iniciarSesion = async (req, res) => {
             return res.status(401).json({ error: 'Usuario o contraseña incorrectos.' });
         }
 
-        if (usuario.tipoIdentificacion !== tipoIdentificacion) {
-            return res.status(400).json({ error: 'Tipo de identificación incorrecto.' });
-        }
-
-        if (new Date(usuario.fechaNacimiento).getTime() !== new Date(fechaNacimiento).getTime()) {
-            return res.status(400).json({ error: 'La fecha de nacimiento es incorrecta.' });
+        // Validar tipo de identificación y fecha de nacimiento
+        if (usuario.tipoIdentificacion !== tipoIdentificacion || new Date(usuario.fechaNacimiento).getTime() !== new Date(fechaNacimiento).getTime()) {
+            return res.status(400).json({ error: 'Tipo de identificación o fecha de nacimiento incorrectos.' });
         }
 
         const isMatch = await bcrypt.compare(password, usuario.password);
@@ -88,11 +86,19 @@ const iniciarSesion = async (req, res) => {
             return res.status(401).json({ error: 'Usuario o contraseña incorrectos.' });
         }
 
-        const token = jwt.sign({ id: usuario._id, rol: usuario.rol }, process.env.JWT_SECRET, { expiresIn: '1h' }); // Incluye el rol en el token
-        res.json({ token });
+        const token = jwt.sign({ id: usuario._id, rol: usuario.rol }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+        // Si es paciente, devolver sus datos y órdenes
+        let pacienteData = null;
+        if (usuario.rol === 'paciente') {
+            const paciente = await Paciente.findById(usuario._id).populate('ordenes'); // Asegúrate de que la relación esté establecida
+            pacienteData = paciente;
+        }
+
+        res.json({ token, paciente: pacienteData });
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: 'Error interno del servidor.' });
+        res.status(500).json({ error: 'Error interno del servidor.', details: err.message });
     }
 };
 
